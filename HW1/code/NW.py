@@ -34,6 +34,9 @@ def Backtrack(seq1: str, seq2: str, path_matrix: np.ndarray) -> tuple[str, str]:
 
         path_matrix: A 3 dimensional numpy ndarray that contains info on the path taken by Needleman Wunsh
             The third dimension holds info on whether a letter was taken from seq1, seq2 or from both.
+    
+    Output:
+        Two strings corresponding to the input sequences. "-" represents a gap.
     """
     final_seq1 = ""
     final_seq2 = ""
@@ -106,9 +109,6 @@ def needleman_wunsch(seq1: str, seq2: str) -> tuple[int, str, str]:
     return (score_matrix[len(seq1), len(seq2)], final_seq1, final_seq2)
 
 if __name__=="__main__":
-    # path = ".\\HW1\\test.txt"
-    # Sequences = ReadFASTA(path)
-
     Sequences=ReadFASTA(sys.argv[1])
     assert len(Sequences.keys())==2, "fasta file contains more than 2 sequences."
     seq1=Sequences[list(Sequences.keys())[0]]
