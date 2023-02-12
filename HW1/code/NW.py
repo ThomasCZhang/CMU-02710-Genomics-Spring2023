@@ -46,19 +46,19 @@ def Backtrack(seq1: str, seq2: str, path_matrix: np.ndarray) -> tuple[str, str]:
     
     while (row != 0) and (col != 0):
        
-        if path_matrix[row, col, 0] == 1:
+        if path_matrix[row, col, 2] == 1:
             row -= 1
+            col -= 1
             final_seq1 = seq1[row] + final_seq1
-            final_seq2 = "-" + final_seq2
+            final_seq2 = seq2[col] + final_seq2
         elif path_matrix[row, col, 1] == 1:
             col -= 1
             final_seq1 = "-" + final_seq1
             final_seq2 = seq2[col] + final_seq2
-        elif path_matrix[row, col, 2] == 1:
+        elif path_matrix[row, col, 0] == 1:
             row -= 1
-            col -= 1
             final_seq1 = seq1[row] + final_seq1
-            final_seq2 = seq2[col] + final_seq2
+            final_seq2 = "-" + final_seq2
     
     return final_seq1, final_seq2
 
