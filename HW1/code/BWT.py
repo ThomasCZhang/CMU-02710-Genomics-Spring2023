@@ -49,16 +49,33 @@ def bwt_decode(bwt):
     Args: bwt, BWT'ed string, which should contain '{' and '}'
     Returns: reconstructed original string s, must not contains '{' or '}'
     """
-    matrix = ["" for i in range(len(bwt))]
-    for i in range(len(bwt)):
-        for j in range(len(bwt)):
-            matrix[j] = "".join([bwt[j], matrix[j]])
-        matrix.sort()
+    counts = {}
+    for key in bwt:
+        if key in counts:
+            counts[key] += 1
+        else:
+            counts[key] = 1
     
-    for string in matrix:
-        if string[len(bwt)-1] == "}":
-            return string[1:len(bwt)-1]
+    rank = {}
+    count = 0
+    for key in sorted(list(counts.keys())):
+        rank[key] = count
+        count += counts[key]
+        counts[key] = 0
 
+    idx_linked_list = [0 for i in range(len(bwt))]
+    for idx0, val in enumerate(bwt):
+        idx_linked_list[idx0] = rank[val] + counts[val]
+        counts[val] += 1
+
+    curr_idx = rank["}"]
+    decoded_string = ""
+    while bwt[curr_idx] != "{":
+        decoded_string = "".join([bwt[curr_idx], decoded_string])
+        curr_idx = idx_linked_list[curr_idx]
+
+    return decoded_string
+    
 def test_string(s):
     compressed = rle(s)
     bwt = bwt_encode(s)
