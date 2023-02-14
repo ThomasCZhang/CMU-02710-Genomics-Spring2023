@@ -75,7 +75,7 @@ def bwt_decode(bwt):
         curr_idx = idx_linked_list[curr_idx]
 
     return decoded_string
-    
+        
 def test_string(s):
     compressed = rle(s)
     bwt = bwt_encode(s)
@@ -94,9 +94,10 @@ if __name__ == "__main__":
     # Add more of your own strings to explore for question (i)
     test_strings = [
                     "WOOOOOHOOOOHOOOO!",
-                    "scottytartanscottytartanscottytartanscottytartan",
-                    "BANANA",
-                    "steelerssteelerssteelerssteelers"
+                    # "scottytartanscottytartanscottytartanscottytartan",
+                    # "BANANA",
+                    # "steelerssteelerssteelerssteelers"
+                    "WOOHOO!"
     ]
     for s in test_strings:
         test_string(s)

@@ -44,8 +44,7 @@ def Backtrack(seq1: str, seq2: str, path_matrix: np.ndarray) -> tuple[str, str]:
     row = len(seq1)
     col = len(seq2)
     
-    while (row != 0) and (col != 0):
-       
+    while (row != 0) or (col != 0):
         if path_matrix[row, col, 2] == 1:
             row -= 1
             col -= 1
