@@ -1,11 +1,12 @@
 # de_genes.py
 # HW2, Computational Genomics, Spring 2022
-# andrewid:
+# andrewid: tczhang
 
 # WARNING: Do not change the file name; Autograder expects it.
 
 import sys
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 # Do not change this function signature
@@ -25,11 +26,16 @@ def bh(genes, pvals, alpha):
     array containing gene names of significant genes.
     gene names do not need to be in any specific order.
     """
+    n = len(genes)
+    ordered_pval = sorted(zip(genes, pvals), key = lambda t: t[1])
+    rank = 0
+    while rank < n and ordered_pval[rank][1] < alpha*(rank+1)/n:
+        rank += 1
+    significant_genes = np.asarray([x[0] for x in ordered_pval[0:rank]])
+    return significant_genes
 
-    pass
-
-# define any helper function here    
-
+# define any helper function here       
+    
 if __name__=="__main__":
     # Here is a free test case
     genes=['a', 'b', 'c']
